@@ -1,4 +1,5 @@
 
+using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.GameMath;
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
@@ -20,10 +21,10 @@ public static partial class Program
         {"get", command => throw new NotImplementedException("Gotta write this!") },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"stats", ProcessStatsCommand}
     };
-
-    // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
+    
     // TODO:  Add a `help` command that displays the list of allowed commands and describes how to use them [Easy]
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
     //        all the possible ways to use the `look` command. [Easy, Multipart]
@@ -121,6 +122,19 @@ public static partial class Program
             // the ! in this line means I'm certain that this item isn't null.
             if (_currentArea.HasCreature(cmd.Target))
                 _currentArea.GetCreature(cmd.Target)!.LookAt();
+        }
+    }
+
+    private static void ProcessStatsCommand(Command cmd)
+    {
+        if (cmd.Target == "")
+        {
+            WriteLinePositive($"{_player.Name} stats:");
+            WriteLinePositive($"HP: {_player.Stats.HP}");
+            WriteLinePositive($"MaxHP: {_player.Stats.MaxHP}");
+            WriteLinePositive($"AC: {_player.Stats.AC}");
+            WriteLinePositive($"HitDice: {_player.Stats.HitDice}");
+            WriteLinePositive($"AttackDice: {_player.Stats.AttackDice}");
         }
     }
 }
