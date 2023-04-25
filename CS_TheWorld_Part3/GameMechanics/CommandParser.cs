@@ -17,10 +17,12 @@ public static partial class Program
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
         {"look", ProcessLookCommand },
+        // making the function a variable
         {"get", command => throw new NotImplementedException("Gotta write this!") },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"stats", ProcessStatCommand)},
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -122,5 +124,11 @@ public static partial class Program
             if (_currentArea.HasCreature(cmd.Target))
                 _currentArea.GetCreature(cmd.Target)!.LookAt();
         }
+    }
+
+    private static void ProcessStatCommand(Command cmd)
+    { 
+        
+        
     }
 }

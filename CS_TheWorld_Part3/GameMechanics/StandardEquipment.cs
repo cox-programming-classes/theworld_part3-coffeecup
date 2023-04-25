@@ -8,6 +8,7 @@ public class StandardEquipment :
 {
     public int Weight { get; init; }
     public EquipSlot Slot { get; init; }
+    // slot is like clothing -> only one pair of gloves on at the same time
     public StatChart EquipBonuses { get; init; }
 
     public static StandardEquipment Sword => new()
@@ -29,7 +30,16 @@ public class StandardEquipment :
             new(0, 2, Dice.D20, Dice.D4),
         Slot = EquipSlot.OffHand
     };
-    
+
+    public static StandardEquipment Launcher => new()
+    {
+        Name = "Fire Launcher",
+        Description = "Whoa it shoots fire!",
+        Weight = 3,
+        EquipBonuses = new(0, 4, Dice.D20, Dice.D8),
+        Slot = EquipSlot.MainHand,
+    };
+
     // TODO:  Create more standard equipment! [Easy]
     // TODO:  Create more advanced equipment by creating more classes that extend StandardEquipment and also implement IUseableItem [Difficult]
 }

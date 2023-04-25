@@ -107,6 +107,11 @@ public class StatChart
             LevelUp?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    public override string ToString()
+    {
+        string stats = {$"HP: {HP}, AC: {AC}, HitDice: {HitDice}, AttackDice: {AttackDice}, Exp: {Exp}$"};
+    }
 }
 
 /// <summary>

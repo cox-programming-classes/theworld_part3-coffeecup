@@ -46,9 +46,6 @@ public class Player : ICreature
         
     }
 
-    
-
-
     private Dictionary<EquipSlot, IEquipable> _equipment = new();
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment => _equipment.AsReadOnly();
     
@@ -59,8 +56,7 @@ public class Player : ICreature
      */
     
     private Dictionary<UniqueName, ICarryable> _items = new();
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items => _items.AsReadOnly();
-
+    public ReadOnlyDictionary<UniqueName, ICarryable> Items => _items.AsReadOnly(); // doesn't require memory
     
     /* TODO:  Write Behaviors that allow the player to access their Items.
               i.e PickUp an item and add it to the inventory, [Easy]

@@ -23,6 +23,13 @@ public static class StandardCreatures
         Stats = new(24, 12, Dice.D20, Dice.D12)
     };
 
+    public static Creature PolarBear => new()
+    {
+        Name = "Polar Bear",
+        Description = "It's really tall...",
+        Stats = new(50, 11, Dice.D20, Dice.D12)
+    };
+
 
     // TODO:  Create Some more CREATURES! [Easy]
     // TODO:  Create more KINDS of creatures. [Varying Difficulty]

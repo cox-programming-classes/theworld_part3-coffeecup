@@ -8,13 +8,16 @@ using static TextFormatter;
 /// This is a specialized Item that doesn't have any extra characteristics yet....
 /// TODO:  Research!  How is this used in the current example context?  What is it about this item that is useful [Moderate]
 /// </summary>
-public class KeyStone : Item, ICarryable, IUsable
+public class KeyStone : Item, ICarryable, IUsable // these are the things it inherits from
+// an item you need to have to access the portal
 {
+    // implements ICarryable
+    // ex: if item is ICarryable, return true
     public string Element { get; init; }
     public int Weight { get; init; }
 
     /// <summary>
-    /// Becareful what you use this on!
+    /// Be careful what you use this on!
     /// </summary>
     /// <param name="target"></param>
     /// <returns></returns>
