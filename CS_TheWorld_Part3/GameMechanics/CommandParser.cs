@@ -1,5 +1,7 @@
 
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
+
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
 
@@ -17,7 +19,7 @@ public static partial class Program
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
         {"look", ProcessLookCommand },
-        {"get", command => throw new NotImplementedException("Gotta write this!") },  
+        {"get", ProcessGetCommand },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand }
@@ -51,8 +53,8 @@ public static partial class Program
             WriteLineWarning("I don't know what that means.");
         }
 
-        // TODO:  Reasearch!  Oh good god what the hell is this? [Moderate]
-        _commandWords[command.CommandWord](command);
+        // TODO:  Research!  Oh good god what the hell is this? [Moderate]
+        _commandWords[command.CommandWord](command); // if a valid command word, finds the command word from the dictionary, which the parameter is a command word
     }
     
     private static void ProcessGoCommand(Command command)
@@ -82,6 +84,29 @@ public static partial class Program
         _currentArea = place;
     }
 
+    private static void ProcessGetCommand(Command command)
+    {
+        if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        {
+            _currentArea.GetItem(command.Target, command.Target);
+            return;
+        }
+        
+        else if (!_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        {
+            WriteLineWarning("This item isn't here.");
+            return;
+        }
+        
+        else
+        {
+            WriteLineWarning("You can't pick that up.");
+            return;
+        }
+        
+        // add item to the backpack
+        // TODO:  Implement the `get` command to pick up an item and place it in the player inventory [Easy]
+    }
     private static void ProcessFightCommand(Command command)
     {
         if (command.Target == "")
