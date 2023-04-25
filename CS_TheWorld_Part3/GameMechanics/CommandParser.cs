@@ -10,7 +10,7 @@ using static TextFormatter;
 /// are distributed so that they're easier to understand, but
 /// comprise the larger whole.
 /// </summary>
-public static partial class Program
+public static partial class Program 
 {
     /// <summary>
     /// Upgraded Command Words!  Now this is a mapping from the command word to the Action that happens!
@@ -22,10 +22,10 @@ public static partial class Program
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
-        {"stats", ProcessStatsCommand}
+        {"stats", ProcessStatsCommand},
+        {"help", ProcessHelpCommand}
     };
     
-    // TODO:  Add a `help` command that displays the list of allowed commands and describes how to use them [Easy]
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
     //        all the possible ways to use the `look` command. [Easy, Multipart]
     // TODO:  Add a `backpack` command that lists the contents of your players Inventory. [Easy]
@@ -129,12 +129,24 @@ public static partial class Program
     {
         if (cmd.Target == "")
         {
-            WriteLinePositive($"{_player.Name} stats:");
-            WriteLinePositive($"HP: {_player.Stats.HP}");
-            WriteLinePositive($"MaxHP: {_player.Stats.MaxHP}");
-            WriteLinePositive($"AC: {_player.Stats.AC}");
-            WriteLinePositive($"HitDice: {_player.Stats.HitDice}");
-            WriteLinePositive($"AttackDice: {_player.Stats.AttackDice}");
+            WriteLineNeutral($"{_player.Name} stats:");
+            WriteLineNeutral($"HP: {_player.Stats.HP}");
+            WriteLineNeutral($"MaxHP: {_player.Stats.MaxHP}");
+            WriteLineNeutral($"AC: {_player.Stats.AC}");
+            WriteLineNeutral($"HitDice: {_player.Stats.HitDice}");
+            WriteLineNeutral($"AttackDice: {_player.Stats.AttackDice}");
         }
+    }
+
+    private static void ProcessHelpCommand(Command cmd)
+    {
+        if (cmd.Target == "")
+        {
+            WriteLineNeutral("look: to look around, use 'look'. to see more information about an object, use 'look' + (object name)");
+            WriteLineNeutral("fight: to fight a creature, use 'fight' + (creature name)");
+            WriteLineNeutral("go: to go somewhere, use 'go' + (direction name or name of place)");
+            WriteLineNeutral("stats: to see your stats, use 'stats'");
+        }
+
     }
 }

@@ -5,7 +5,7 @@ namespace CS_TheWorld_Part3.Items;
 /// <summary>
 /// Equipment Slots
 /// </summary>
-public enum EquipSlot
+public enum EquipSlot //enum can only be the things listed below
 {
     Head,
     Arms,
