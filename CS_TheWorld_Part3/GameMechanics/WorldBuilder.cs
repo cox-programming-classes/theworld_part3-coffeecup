@@ -64,11 +64,13 @@ public static partial class Program
         start.AddCreature("moth", moth);
         
         
-        var possum Creature = StandardCreatures.Marsupial;
+        var possum  = StandardCreatures.Marsupial;
+        possum.Stats.Death += (sender, args) =>
         {
-            
-        }
-        
+            OnCreatureDeath("possum", possum, 
+            $"is it playing dead? or just dead? eat it and find out :D");
+        };
+        start.AddCreature("possum", possum);
         
         var armadillo = new Creature()
         {
