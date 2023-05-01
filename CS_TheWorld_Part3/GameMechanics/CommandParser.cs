@@ -19,8 +19,7 @@ public static partial class Program
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
         {"look", ProcessLookCommand },
-        {"get", command => throw new NotImplementedException()
-            /*ProcessGetCommand*/ },  
+        {"get", ProcessGetCommand },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand }
@@ -85,11 +84,11 @@ public static partial class Program
         _currentArea = place;
     }
 
-    /*private static void ProcessGetCommand(Command command)
+    private static void ProcessGetCommand(Command command)
     {
         if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
         {
-            _currentArea.GetItem(command.Target, command.Target);
+            _currentArea.GetItem(command.Target);
             return;
         }
         
@@ -107,7 +106,7 @@ public static partial class Program
         
         // add item to the backpack
         // TODO:  Implement the `get` command to pick up an item and place it in the player inventory [Easy]
-    } */
+    }
     
     private static void ProcessFightCommand(Command command)
     {
