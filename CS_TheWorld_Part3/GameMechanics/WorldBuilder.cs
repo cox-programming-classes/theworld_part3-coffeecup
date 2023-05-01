@@ -62,12 +62,104 @@ public static partial class Program
         };
         // Add the Moth to the area.
         start.AddCreature("moth", moth);
-
+        
+        
+        var possum Creature = StandardCreatures.Marsupial;
+        {
+            
+        }
+        
+        
+        var armadillo = new Creature()
+        {
+            Name = "Evil Armadillo",
+            Description = "It's rolling around in a ball of death and destruction", 
+            Stats = new StatChart(18, 8, Dice.D20, new(1, 8, -1))
+        };
+        armadillo.Stats.Death += (sender, args) =>
+        {
+            _player.Stats.GainExp(armadillo.Stats.Exp); //give the armadillo's xp to the player
+            WriteLineSurprise($"{armadillo.Name} rolls away" +
+                              $" looking pretty dead.");
+        };
+        
         var tundra = new Area()
         {
             Name = "The Tundra",
             Description = "Cold, Barren Wasteland."
         };
+        var florida = new Area()
+        {
+            Name = "Florida (yee haw!)",
+            Description = "The dwelling of the specific subspecies of homo sapiens known as the Florida Man"
+        };
+        var desert = new Area()
+        {
+            Name = "The Wild, Wild West",
+            Description = "The land of cowboys, cacti, and conflict"
+        };
+        var salem = new Area()
+        {
+            Name = "Salem",
+            Description = "Like the rest of New England but with more ghosts and spook"
+        };
+        var california = new Area()
+        {
+            Name = "California",
+            Description = "The waves are big; the egos are bigger"
+        };
+        
+        var greenland = new Area()
+        {
+            Name = "Greenland",
+            Description = "A cold place where you can eat green eggs and ham"
+        };
+        
+        var texas = new Area()
+        {
+            Name = "Texas",
+            Description = "Even the dumbass senator doesn't want to be there, but there are a few nice people like a few"
+        };
+        
+        var alaska = new Area()
+        {
+            Name = "Alaska",
+            Description = "Life below 0"
+        };
+
+
+
+
+        // Add the armadillo to the area.
+        desert.AddCreature("armadillo", armadillo);
+        
+        var ghost = new Creature()
+        {
+            Name = "Ghost",
+            Description = "The bloody ghost of a Victorian child in a nightdress", 
+            Stats = new StatChart(10, 8, Dice.D20, new(2, 5, 0))
+        };
+        ghost.Stats.Death += (sender, args) =>
+        {
+            _player.Stats.GainExp(ghost.Stats.Exp); //give the ghost's xp to the player
+            WriteLineSurprise($"{ghost.Name} dissapates in a howling storm of death the sequel");
+        };
+        // Add the ghost to the area.
+        salem.AddCreature("ghost", ghost);
+        
+        
+        var poleindeer = new Creature()
+        {
+            Name = "Poleindeer",
+            Description = "a hellish fusion of a half of a polar bear and a half of a reindeer. we don't frick around in the tundra.", 
+            Stats = new StatChart(30, 12, Dice.D20, new(2, 5, 0))
+        };
+        poleindeer.Stats.Death += (sender, args) =>
+        {
+            _player.Stats.GainExp(poleindeer.Stats.Exp); //give the ghost's xp to the player
+            WriteLineSurprise($"{poleindeer.Name} is split in half! the reindeer and polar bear halves are now freed and can live separate lives :)");
+        };
+        tundra.AddCreature("poleindeer", poleindeer);
 
         var salamander = new Creature()
         {
@@ -90,9 +182,41 @@ public static partial class Program
         
         start.AddCreature("salamander", salamander);
 
-        start.AddNeighboringArea(new ("north", "Far to the North"), tundra);
-        tundra.AddNeighboringArea(new Direction("south", "Far to the South"), start);
+        start.AddNeighboringArea(new Direction("NORTH", DisplayPhrase: $"{tundra.Name}"), tundra);
+        start.AddNeighboringArea(new Direction("EAST", DisplayPhrase: $"{salem.Name}"), salem);
+        start.AddNeighboringArea(new Direction("SOUTH", DisplayPhrase: $"{texas.Name}"), texas);
+        start.AddNeighboringArea(new Direction("WEST", DisplayPhrase: $"{california.Name}"), california);
 
+        tundra.AddNeighboringArea(new Direction("EAST", DisplayPhrase: $"{greenland.Name}"), greenland);
+        tundra.AddNeighboringArea(new Direction("SOUTH", DisplayPhrase: $"{start.Name}"), start);
+        tundra.AddNeighboringArea(new Direction("WEST", DisplayPhrase: $"{alaska.Name}"), alaska);
+
+        florida.AddNeighboringArea(new Direction("NORTH", DisplayPhrase: $"{salem.Name}"), salem);
+        florida.AddNeighboringArea(new Direction("WEST", DisplayPhrase: $"{texas.Name}"), texas);
+        
+        desert.AddNeighboringArea(new Direction("NORTH", DisplayPhrase: $"{california.Name}"), california);
+        desert.AddNeighboringArea(new Direction("EAST", DisplayPhrase: $"{texas.Name}"), texas);
+        
+        salem.AddNeighboringArea(new Direction("NORTH", DisplayPhrase: $"{greenland.Name}"), greenland);
+        salem.AddNeighboringArea(new Direction("SOUTH", DisplayPhrase: $"{florida.Name}"), florida);
+        salem.AddNeighboringArea(new Direction("WEST", DisplayPhrase: $"{start.Name}"), start);
+
+        california.AddNeighboringArea(new Direction("NORTH", DisplayPhrase: $"{alaska.Name}"), alaska);
+        california.AddNeighboringArea(new Direction("EAST", DisplayPhrase: $"{start.Name}"), start);
+        california.AddNeighboringArea(new Direction("SOUTH", DisplayPhrase: $"{desert.Name}"), desert);
+        
+        greenland.AddNeighboringArea(new Direction("SOUTH", DisplayPhrase: $"{salem.Name}"), salem);
+        greenland.AddNeighboringArea(new Direction("WEST", DisplayPhrase: $"{tundra.Name}"), tundra);
+        
+        texas.AddNeighboringArea(new Direction("NORTH", DisplayPhrase:$"{start.Name}"), start);
+        texas.AddNeighboringArea(new Direction("EAST", DisplayPhrase:$"{florida.Name}"), florida);
+        texas.AddNeighboringArea(new Direction("WEST", DisplayPhrase:$"{desert.Name}"), desert);
+        
+        alaska.AddNeighboringArea(new Direction("EAST", DisplayPhrase: $"{tundra.Name}"), tundra);
+        alaska.AddNeighboringArea(new Direction("SOUTH", DisplayPhrase: $"{california.Name}"), california);
+
+        
+        
         var planeOfFire = new Area()
         {
             Name = "Plane of Fire",
