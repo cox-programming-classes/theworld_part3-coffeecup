@@ -18,6 +18,8 @@ public class Area
     /// TODO:  Identify other areas in the game where a Func<...> and Action<...> might be useful. [Varying Difficulty]
     /// </summary>
     public Func<Player, bool>? OnEntryAction { get; init; } = (player) => false;
+    // function pointer: gives a name to a chunk of code that defines it as a variable(?)
+    // points to executionable code within memory
 
     /// <summary>
     /// Something that happens when the player Leaves the area...

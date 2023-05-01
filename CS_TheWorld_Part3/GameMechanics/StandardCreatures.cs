@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.Items;
@@ -29,6 +30,24 @@ public static class StandardCreatures
         Description = "It's really tall...",
         Stats = new(50, 11, Dice.D20, Dice.D12)
     };
+
+    public static Creature Possum
+    {
+        get
+        {
+            var possum = new Creature()
+            {
+                Name = "Possum",
+                Description = "It's horrible-looking.",
+                Stats = new StatChart(50, 10, Dice.D20, Dice.D12),
+                Items = new ReadOnlyDictionary<UniqueName, ICarryable>(new Dictionary<UniqueName, ICarryable>()
+                {
+                    {"firestone", new KeyStone()}
+                })
+            };
+            return possum;
+        }
+    }
 
 
     // TODO:  Create Some more CREATURES! [Easy]

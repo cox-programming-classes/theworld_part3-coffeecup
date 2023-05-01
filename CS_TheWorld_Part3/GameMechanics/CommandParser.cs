@@ -22,7 +22,7 @@ public static partial class Program
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
-        {"stats", ProcessStatCommand)},
+        {"stats", ProcessStatCommand},
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -75,6 +75,7 @@ public static partial class Program
         
         // Check the new Actions that Areas have.
         // Are there actions that happen when you leave an area or when you enter a new area?
+        // keystone usage
         if (_currentArea.OnExitAction?.Invoke(_player) ?? false)
             return;  // you were denied exit from the current area.
 
@@ -97,16 +98,23 @@ public static partial class Program
             WriteLineWarning($"You can't fight [{command.Target}].");
             return;
         }
-        
+
         if (!_currentArea.HasCreature(command.Target))
         {
             WriteLineWarning($"You don't see [{command.Target}].");
             return;
         }
-        
-        WriteLineWarning("Gotta write that code yet....");
+
         var target = _currentArea.GetCreature(command.Target)!;
-        DoBattle(target);
+        WriteLineNeutral($"Do you wish to fight {target.Name}?");
+        command = GetPlayerInput();
+        while (_player.Stats.HP > 0 && target.Stats.HP > 0)
+        {
+            if (command.CommandWord == "yes")
+            {
+                DoBattle(target);
+            }
+        }
     }
 
     private static void ProcessLookCommand(Command cmd)

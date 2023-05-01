@@ -27,7 +27,30 @@ public static partial class Program
                 WriteLineWarning($"{command.CommandWord} is not a valid command word.");
                 continue;
             }
+            WriteLineNeutral($"Player has {_player.Stats.HP} heath at start.");
+            WriteLineNeutral($"{creature.Name} has {creature.Stats.HP} heath at start.");
+            int playerDamage = _player.Stats.AttackDice.Roll();
+            int creatureDamage = creature.Stats.AttackDice.Roll();
+            WriteLineNeutral($"Player has rolled a {playerDamage}.");
+            WriteLineNeutral($"{creature.Name} has rolled a {creatureDamage}.");
+            if (command.CommandWord == "attack" && playerDamage > creatureDamage)
+            {
+                WriteLineSurprise("You attack!");
+                creature.Stats.ChangeHP(-playerDamage);
+                WriteLineNeutral($"Creature has {creature.Stats.HP} heath.");
+            }
 
+            if (command.CommandWord == "attack" && creatureDamage > playerDamage)
+            {
+                WriteLineNegative("You aren't strong enough. The creature fights back.");
+                _player.Stats.ChangeHP(-creatureDamage);
+                WriteLineNeutral($"Player has {_player.Stats.HP} heath.");
+            }
+
+            if (command.CommandWord == "attack" && creatureDamage == playerDamage)
+            {
+                WriteLineNeutral("You both miss. How??");
+            }
             _player.CombatLogic(creature, command);
             if (creature.CombatLogic is null)
                 ((ICreature) creature).CombatLogic(_player, "");
@@ -39,6 +62,8 @@ public static partial class Program
                 // TODO:  Maybe running away shouldn't be this easy.... [Moderate]
                 break;
             }
+            
+                
         }
     }
 }

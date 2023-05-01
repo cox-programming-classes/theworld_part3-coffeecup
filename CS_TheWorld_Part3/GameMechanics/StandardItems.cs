@@ -40,6 +40,7 @@ public static class StandardItems
     /// <summary>
     /// A reusable instance of a KeyStone 
     /// </summary>
+    // definition of a keystone
     public static KeyStone FireStone => new()
     {
         Name = "Fire Stone",

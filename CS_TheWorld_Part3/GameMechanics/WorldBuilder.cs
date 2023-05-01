@@ -98,8 +98,12 @@ public static partial class Program
             Name = "Plane of Fire",
             Description = "That's a whoooooole lot of lava.....",
             OnEntryAction = (player) =>
+            // this is a function that takes the player as a parameter
+            // goes from ProcessGoCommand to the area class
+            // default behavior is false, so it runs the function in the area clas
             {
                 // Check to see if the player HAS a KeyStone item.
+                // Keystone implementation here
                 if (!player.Items.Any(kvp => kvp.Value is KeyStone))
                 {
                     // If Not, the player is denied entry and takes 1d4 damage!
