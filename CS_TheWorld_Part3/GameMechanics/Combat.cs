@@ -21,14 +21,14 @@ public static partial class Program
         WriteLineWarning($"You engage {creature.Name} in combat!");
         while (_player.Stats.HP > 0 && creature.Stats.HP > 0)
         {
-            var command = (Command)GetPlayerInput("(battle) ");
+            var command = (Command)GetPlayerInput("");
             if (!_battleCommands.Contains(command.CommandWord))
             {
                 WriteLineWarning($"{command.CommandWord} is not a valid command word.");
                 continue;
             }
-            WriteLineNeutral($"Player has {_player.Stats.HP} heath at start.");
-            WriteLineNeutral($"{creature.Name} has {creature.Stats.HP} heath at start.");
+            WriteLineNeutral($"Player has {_player.Stats.HP} health at start.");
+            WriteLineNeutral($"{creature.Name} has {creature.Stats.HP} health at start.");
             int playerDamage = _player.Stats.AttackDice.Roll();
             int creatureDamage = creature.Stats.AttackDice.Roll();
             WriteLineNeutral($"Player has rolled a {playerDamage}.");
@@ -37,14 +37,14 @@ public static partial class Program
             {
                 WriteLineSurprise("You attack!");
                 creature.Stats.ChangeHP(-playerDamage);
-                WriteLineNeutral($"Creature has {creature.Stats.HP} heath.");
+                WriteLineNeutral($"Creature has {creature.Stats.HP} health.");
             }
 
             if (command.CommandWord == "attack" && creatureDamage > playerDamage)
             {
                 WriteLineNegative("You aren't strong enough. The creature fights back.");
                 _player.Stats.ChangeHP(-creatureDamage);
-                WriteLineNeutral($"Player has {_player.Stats.HP} heath.");
+                WriteLineNeutral($"Player has {_player.Stats.HP} health.");
             }
 
             if (command.CommandWord == "attack" && creatureDamage == playerDamage)

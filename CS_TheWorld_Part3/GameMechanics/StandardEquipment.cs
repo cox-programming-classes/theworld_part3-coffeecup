@@ -27,7 +27,7 @@ public class StandardEquipment :
         Description = "Small Wooden Buckler Suitable for self-defense",
         Weight = 1,
         EquipBonuses =
-            new(0, 2, Dice.D20, Dice.D4),
+            new(0, 4, Dice.D20, Dice.D4),
         Slot = EquipSlot.OffHand
     };
 
@@ -36,7 +36,7 @@ public class StandardEquipment :
         Name = "Fire Launcher",
         Description = "Whoa it shoots fire!",
         Weight = 3,
-        EquipBonuses = new(0, 4, Dice.D20, Dice.D8),
+        EquipBonuses = new(0, 2, Dice.D20, Dice.D8),
         Slot = EquipSlot.MainHand,
     };
 

@@ -16,7 +16,8 @@ public enum EquipSlot
     Accessory,
     MainHand,
     OffHand,
-    TwoHand
+    TwoHand,
+    Mouth
 }
 
 public interface IEquipable

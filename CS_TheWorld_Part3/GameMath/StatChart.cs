@@ -110,7 +110,8 @@ public class StatChart
 
     public override string ToString()
     {
-        string stats = {$"HP: {HP}, AC: {AC}, HitDice: {HitDice}, AttackDice: {AttackDice}, Exp: {Exp}$"};
+        string stats = $"HP: {HP}, AC: {AC}, HitDice: {HitDice}, AttackDice: {AttackDice}, Exp: {Exp}$";
+        return stats;
     }
 }
 

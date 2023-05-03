@@ -93,6 +93,30 @@ public static partial class Program
         start.AddNeighboringArea(new ("north", "Far to the North"), tundra);
         tundra.AddNeighboringArea(new Direction("south", "Far to the South"), start);
 
+        var iceRiver = new Area()
+        {
+            Name = "Icy River",
+            Description = "An ice-cold trap.",
+            OnEntryAction = (player) =>
+            {
+                if (!player.Items.Any(kvp => kvp.Value is SafeItem))
+                {
+                    WriteLineNegative("Oh no! It's an icy river...and you've fallen in. You are drowning.");
+                    player.Stats.ChangeHP(-Dice.D4.Roll());
+                    return true;
+                }
+
+                var SafeItems = player.Items.Where(kvp => kvp.Value is SafeItem).Select(kvp => kvp.Value as SafeItem);
+                if (SafeItems.Any(Item => Item.Name == "Life Jacket"))
+                {
+                    WriteLinePositive("Your lifejacket saves you! You're not dead.");
+                }
+                return false;
+            }
+        };
+        tundra.AddNeighboringArea(new("east", "Hmm...you don't see much."), iceRiver);
+        iceRiver.AddNeighboringArea(new Direction("west", "You're out and back in the tundra."), tundra);
+            
         var planeOfFire = new Area()
         {
             Name = "Plane of Fire",
@@ -126,8 +150,8 @@ public static partial class Program
         
         planeOfFire.AddCreature("firebird", firebird);
         
-        start.AddNeighboringArea(new("portal", "a Firey portal"), planeOfFire);
-        
+        start.AddNeighboringArea(new("east", "a Firey portal to the East"), planeOfFire);
+        planeOfFire.AddNeighboringArea(new Direction("west", "Far to the West"), start);
         // return the starting area.
         return start;
     }
