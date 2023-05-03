@@ -30,6 +30,28 @@ public class KeyStone : Item, ICarryable, IUsable
     }
 }
 
+public class SafeItem : Item, ICarryable, IUsable
+{
+    public string Element { get; init; }
+    public int Weight { get; init; }
+
+    /// <summary>
+    /// Becareful what you use this on!
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public string UseOn(object target)
+    {
+        if (target is Player player)
+        {
+            player.Stats.ChangeHP(5);
+            return $"{player.Name} is protected by {Element}";
+        }
+
+        return $"{this} has no effect on {target}";
+    }
+}
+
 // TODO:  Create a specialized item that can be USED to Heal the player [Moderate]
 
 public static class StandardItems
@@ -44,5 +66,12 @@ public static class StandardItems
         Weight = 1
     };
     
+    public static SafeItem LifeJacket => new()
+    {
+        Name = "Life Jacket",
+        Description = "A magical jacket that can pull you out of any trap.",
+        Weight = 3
+    };
+
     // TODO:  Create more cookie-cutter items that you can initialize at will
 }

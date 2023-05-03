@@ -120,6 +120,36 @@ public static partial class Program
                 return false;
             }
         };
+        
+        start.AddNeighboringArea(new ("south", "Far to the South"), planeOfFire);
+        planeOfFire.AddNeighboringArea(new Direction("north", "Far to the North"), start);
+        
+        var icyRiver = new Area()
+        {
+            Name = "Icy River",
+            Description = "You've fallen into the dangerously cold water and find yourself trapped",
+            OnEntryAction = (player) =>
+            {
+                // Check to see if the player HAS a safe item.
+                if (!player.Items.Any(kvp => kvp.Value is SafeItem))
+                {
+                    // If Not, the player is denied entry and takes 1d12 damage!
+                    WriteLineWarning("You start getting hypothermia as you struggle under the ice.");
+                    player.Stats.ChangeHP(-Dice.D12.Roll());
+                    return true;
+                }
+
+                var SafeItems = player.Items.Where(kvp => kvp.Value is SafeItem).Select(kvp => kvp.Value as SafeItem);
+                if (SafeItems.Any(Item => Item.Name == "Life Jacket"))
+                {
+                    WriteLinePositive("You miraculously surface, magically warm after your terrifying encounter");
+                }
+                return false;
+            }
+        };
+        
+        tundra.AddNeighboringArea(new ("east", "To the East"), icyRiver);
+        icyRiver.AddNeighboringArea(new Direction("west", "To the West"), tundra);
 
         // TODO:  This Mechanic of creating a creature then applying the death event is clunky [Extremely Difficult]
         //        Can you make it better?  

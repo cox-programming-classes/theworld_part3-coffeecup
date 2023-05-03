@@ -16,7 +16,8 @@ public enum EquipSlot //enum can only be the things listed below
     Accessory,
     MainHand,
     OffHand,
-    TwoHand
+    TwoHand,
+    Mouth
 }
 
 public interface IEquipable
