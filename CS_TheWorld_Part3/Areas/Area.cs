@@ -68,7 +68,12 @@ public class Area
 
         return _items[uniqueName];
     }
-    
+
+    /*public Item? RemoveItem(UniqueName uniqueName)
+    {
+        if ()
+    }*/
+
     /// <summary>
     /// TODO:  Write a RemoveItem method that removes an item from the area so that it is not duplicated when picked up [Easy]
     /// </summary>
