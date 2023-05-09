@@ -1,4 +1,6 @@
 
+using System.ComponentModel.Design;
+using System.Runtime;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.GameMath;
 namespace CS_TheWorld_Part3.GameMechanics;
