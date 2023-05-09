@@ -71,7 +71,9 @@ public static partial class Program
             $"is it playing dead? or just dead? eat it and find out :D");
         };
         start.AddCreature("possum", possum);
-        
+
+
+
         var armadillo = new Creature()
         {
             Name = "Evil Armadillo",
@@ -130,7 +132,12 @@ public static partial class Program
         };
 
 
-
+        salem.AddItem("brandy", 
+            new Item()
+            {
+                Name = "Brandy", 
+                Description = "it tastes like shit!"
+            });
 
         // Add the armadillo to the area.
         desert.AddCreature("armadillo", armadillo);
