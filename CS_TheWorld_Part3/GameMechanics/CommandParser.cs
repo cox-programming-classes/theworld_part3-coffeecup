@@ -20,7 +20,7 @@ public static partial class Program
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
         {"look", ProcessLookCommand },
-        {"get", command => throw new NotImplementedException("Gotta write this!") },  
+        {"get", ProcessGetCommand},  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
@@ -83,6 +83,20 @@ public static partial class Program
             return;  // you were denied entry to this area.
         
         _currentArea = place;
+    }
+    
+    private static void ProcessGetCommand(Command command)
+    {
+        if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        {
+            _currentArea.GetItem(command.Target);
+        }
+        
+        if (!_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        {
+            WriteLineWarning("This item isn't here.");
+        }
+        WriteLineWarning("You can't pick that up.");
     }
 
     private static void ProcessFightCommand(Command command)
