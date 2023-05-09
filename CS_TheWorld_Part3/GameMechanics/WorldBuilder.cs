@@ -27,6 +27,8 @@ public static partial class Program
             Description = "A barren plane with an ambient temperature around 22C and moderate humidity."
         };
         
+        start.AddItem("magicwand", StandardItems.SlothWand);
+        
         var possum  = StandardCreatures.Marsupial;
 
         possum.Stats.Death += (sender, args) =>

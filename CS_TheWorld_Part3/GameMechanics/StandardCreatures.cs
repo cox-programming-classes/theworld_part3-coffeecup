@@ -22,6 +22,13 @@ public static class StandardCreatures
         Description = "It's a bird, and it's made of fire",
         Stats = new(24, 12, Dice.D20, Dice.D12)
     };
+    
+    public static Creature Sloth => new()
+    {
+        Name="Scary Sloth",
+        Description = "He's creeping towards you, rage in his eyes",
+        Stats = new StatChart(15, 5, Dice.D20, new(2, 4, -2))
+    };
 
     public static Creature Marsupial
     {
