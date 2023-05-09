@@ -22,6 +22,25 @@ public static class StandardCreatures
         Description = "It's a bird, and it's made of fire",
         Stats = new(24, 12, Dice.D20, Dice.D12)
     };
+    
+    public static Creature Marsupial
+    {
+        get
+        {
+            var marsupial = new Creature()
+            {
+                Name = "possum",
+                Description = "the only North American marsupial",
+                Stats = new(24, 12, Dice.D20, Dice.D12),
+                Items = new (new Dictionary<UniqueName, ICarryable>()
+                {
+                    { "firestone", new KeyStone() }
+                })
+            };
+
+            return marsupial;
+        }
+    }
 
     public static Creature Marsupial
     {

@@ -1,5 +1,9 @@
 
+using System.ComponentModel.Design;
+using System.Runtime;
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
+
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
 
@@ -17,10 +21,12 @@ public static partial class Program
     private static Dictionary<UniqueName, Action<Command>> _commandWords = new()
     {
         {"look", ProcessLookCommand },
-        {"get", command => throw new NotImplementedException("Gotta write this!") },  
+        {"get", ProcessGetCommand },
+        {"drop", ProcessDropCommand },
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"backpack", ProcessBackpackCommand }
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -51,8 +57,8 @@ public static partial class Program
             WriteLineWarning("I don't know what that means.");
         }
 
-        // TODO:  Reasearch!  Oh good god what the hell is this? [Moderate]
-        _commandWords[command.CommandWord](command);
+        // TODO:  Research!  Oh good god what the hell is this? [Moderate]
+        _commandWords[command.CommandWord](command); // if a valid command word, finds the command word from the dictionary, which the parameter is a command word
     }
     
     private static void ProcessGoCommand(Command command)
@@ -82,6 +88,31 @@ public static partial class Program
         _currentArea = place;
     }
 
+    private static void ProcessGetCommand(Command command)
+    {
+        if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        {
+            _currentArea.GetItem(command.Target);
+            return;
+        }
+        
+        if (!_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        {
+            WriteLineWarning("This item isn't here.");
+            return;
+        }
+        
+        else
+        {
+            WriteLineWarning("You can't pick that up.");
+            return;
+        }
+    }
+    private static void ProcessDropCommand(Command command)
+    {
+        
+        throw new NotImplementedException("Gotta write that code (in CommandParser.cs)");
+    }
     private static void ProcessFightCommand(Command command)
     {
         if (command.Target == "")
@@ -121,6 +152,21 @@ public static partial class Program
             // the ! in this line means I'm certain that this item isn't null.
             if (_currentArea.HasCreature(cmd.Target))
                 _currentArea.GetCreature(cmd.Target)!.LookAt();
+        }
+    }
+    
+    private static void ProcessBackpackCommand(Command cmd)
+    {
+        if(_player.Items.Count <= 0)
+        {
+            WriteLineNeutral("You have no items in your inventory.");
+        }
+        
+        else
+        {
+            WriteLineNeutral("You have these items in your inventory:");
+            foreach(var things in _player.Items)
+                WriteNeutral($"[{things.Key}] ");
         }
     }
 }

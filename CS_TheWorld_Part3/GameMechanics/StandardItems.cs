@@ -14,7 +14,7 @@ public class KeyStone : Item, ICarryable, IUsable
     public int Weight { get; init; }
 
     /// <summary>
-    /// Becareful what you use this on!
+    /// Be careful what you use this on!
     /// </summary>
     /// <param name="target"></param>
     /// <returns></returns>

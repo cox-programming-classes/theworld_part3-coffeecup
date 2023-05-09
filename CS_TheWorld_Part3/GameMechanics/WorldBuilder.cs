@@ -53,6 +53,16 @@ public static partial class Program
             }),
             Stats = new StatChart(12, 8, Dice.D20, new(1, 6, -1))
         };
+
+        var possum = StandardCreatures.Marsupial;
+
+        possum.Stats.Death += (sender, args) =>
+        {
+            OnCreatureDeath("possum", possum, $"Himalayan Soup Base is ready");
+        };
+        
+        start.AddCreature("possum", possum);
+        
         // Here we can assign a lambda expression
         // to be the PlayerDeath action when the moth is killed
         moth.Stats.Death += (sender, args) =>
