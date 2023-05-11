@@ -20,7 +20,8 @@ public static partial class Program
         {"get", command => throw new NotImplementedException("Gotta write this!") },  
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
-        {"go", ProcessGoCommand }
+        {"go", ProcessGoCommand },
+        {"help", ProcessHelpCommand }
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -51,8 +52,19 @@ public static partial class Program
             WriteLineWarning("I don't know what that means.");
         }
 
-        // TODO:  Reasearch!  Oh good god what the hell is this? [Moderate]
+        // TODO:  Research!  Oh good god what the hell is this? [Moderate]
         _commandWords[command.CommandWord](command);
+    }
+
+    public static void ProcessHelpCommand(Command command)
+    {
+        WriteLineNeutral("Hi! I'm your suit's AI companion.");
+        WriteLineNeutral("It seems you're unsure what to do. Here's a list of commands you can use!");
+        //look get fight go get
+        WritePositive("\tlook");
+        WriteNeutral(": this will tell you where you are, what creatures and items there are there, and the directions you can go");
+        
+        
     }
     
     private static void ProcessGoCommand(Command command)
@@ -102,7 +114,6 @@ public static partial class Program
             return;
         }
         
-        WriteLineWarning("Gotta write that code yet....");
         var target = _currentArea.GetCreature(command.Target)!;
         DoBattle(target);
     }

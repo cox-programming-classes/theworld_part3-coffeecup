@@ -26,6 +26,15 @@ public static partial class Program
             Name = "This Place",
             Description = "A barren plane with an ambient temperature around 22C and moderate humidity."
         };
+        
+        /*
+        var possum Creature = StandardCreatures.Marsupial;
+
+        possum.Stats.Death += () =>
+        {
+            OnCreatureDeath("possum", possum, "Himalayan Soup is ready!!");
+        };
+        */
 
         // Add an item directly into the area.
         // by creating the item directly inside this statement,

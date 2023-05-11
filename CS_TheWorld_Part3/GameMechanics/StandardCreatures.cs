@@ -23,6 +23,23 @@ public static class StandardCreatures
         Stats = new(24, 12, Dice.D20, Dice.D12)
     };
 
+    public static Creature Marsupial
+    {
+        get
+        {
+            var marsupial = new Creature()
+            {
+                Name = "Possum",
+                Description = "It looks atrocious",
+                Stats = new StatChart(50, 10, Dice.D20, Dice.D12),
+                Items = new(new Dictionary<UniqueName, ICarryable>()
+                {
+                    { "firestone", new KeyStone()}
+                })
+            };
+            return marsupial;
+        }
+    }
 
     // TODO:  Create Some more CREATURES! [Easy]
     // TODO:  Create more KINDS of creatures. [Varying Difficulty]

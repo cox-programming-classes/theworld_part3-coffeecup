@@ -14,7 +14,7 @@ public class Area
     /// and returns TRUE if this should interrupt the go command and
     /// prevent the player from entering this area.
     ///
-    /// TODO:  Reaserch!  What are these data types Func<...> and Action<...>? [Moderate]
+    /// TODO:  Research!  What are these data types Func<...> and Action<...>? [Moderate]
     /// TODO:  Identify other areas in the game where a Func<...> and Action<...> might be useful. [Varying Difficulty]
     /// </summary>
     public Func<Player, bool>? OnEntryAction { get; init; } = (player) => false;
