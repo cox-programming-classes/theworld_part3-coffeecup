@@ -54,14 +54,15 @@ public static partial class Program
             Stats = new StatChart(12, 8, Dice.D20, new(1, 6, -1))
         };
 
-        var possum = StandardCreatures.Marsupial;
+        /*var possum = StandardCreatures.Marsupial;
 
         possum.Stats.Death += (sender, args) =>
         {
             OnCreatureDeath("possum", possum, $"Himalayan Soup Base is ready");
         };
+        */
         
-        start.AddCreature("possum", possum);
+       // start.AddCreature("possum", possum);
         
         // Here we can assign a lambda expression
         // to be the PlayerDeath action when the moth is killed
@@ -81,7 +82,6 @@ public static partial class Program
             $"is it playing dead? or just dead? eat it and find out :D");
         };
         start.AddCreature("possum", possum);
-
 
 
         var armadillo = new Creature()
@@ -141,7 +141,24 @@ public static partial class Program
             Description = "Life below 0"
         };
 
-
+       
+        var raccoon = new Creature()
+        {
+            Name = "Communist Raccoon",
+            Description = "he likes vodka, overthrowing the bourgeoisie, and redistributing the means of production. Charming lad!", 
+            Stats = new StatChart(20, 15, Dice.D20, new(2, 5, 0))
+        };
+        raccoon.Stats.Death += (sender, args) =>
+        {
+            _player.Stats.GainExp(raccoon.Stats.Exp); //give the ghost's xp to the player
+            WriteLineSurprise($"{raccoon.Name} is split in half! the reindeer and polar bear halves are now freed and can live separate lives :)");
+        };
+        tundra.AddCreature("raccoon", raccoon);
+        greenland.AddCreature("raccoon", raccoon);
+        salem.AddCreature("raccoon", raccoon);
+        alaska.AddCreature("raccoon", raccoon);
+        
+        
         salem.AddItem("brandy", 
             new Item()
             {
@@ -154,8 +171,8 @@ public static partial class Program
         
         var ghost = new Creature()
         {
-            Name = "Ghost",
-            Description = "The bloody ghost of a Victorian child in a nightdress", 
+            Name = "Drunk Ghost",
+            Description = "The bloody and boozy ghost of a Victorian child in a nightdress", 
             Stats = new StatChart(10, 8, Dice.D20, new(2, 5, 0))
         };
         ghost.Stats.Death += (sender, args) =>
@@ -194,10 +211,14 @@ public static partial class Program
             Stats = new(15, 12, Dice.D20, Dice.D6)
         };
 
+
         // TODO:  Research!  This command is long... wtf is going on here, and why is it written this way? [Moderate]
         salamander.Stats.Death += (sender, args) =>
             OnCreatureDeath("salamander", salamander,
                 "The fire along the salamander's back flickers out.");
+       
+        
+        
         
         start.AddCreature("salamander", salamander);
 

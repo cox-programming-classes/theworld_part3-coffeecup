@@ -42,7 +42,7 @@ public static class StandardCreatures
         }
     }
 
-    public static Creature Marsupial
+    /*public static Creature Marsupial
     {
         get
         {
@@ -59,7 +59,7 @@ public static class StandardCreatures
             };
             return marsupial;
         }
-    }
+    }*/
 }
 
     // TODO:  Create Some more CREATURES! [Easy]

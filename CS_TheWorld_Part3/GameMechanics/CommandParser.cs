@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Runtime;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Items;
+using Microsoft.VisualBasic;
 
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
@@ -55,6 +56,7 @@ public static partial class Program
         if (!_commandWords.ContainsKey(command.CommandWord))
         {
             WriteLineWarning("I don't know what that means.");
+            return;
         }
 
         // TODO:  Research!  Oh good god what the hell is this? [Moderate]
@@ -86,6 +88,8 @@ public static partial class Program
             return;  // you were denied entry to this area.
         
         _currentArea = place;
+        
+        WriteLineWarning($"You went to {place.Name}!");
     }
 
     private static void ProcessGetCommand(Command command)
