@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.Runtime;
 using CS_TheWorld_Part3.Creatures;
+using CS_TheWorld_Part3.Items;
 using CS_TheWorld_Part3.GameMath;
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
@@ -87,16 +88,19 @@ public static partial class Program
     
     private static void ProcessGetCommand(Command command)
     {
-        if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        if (_currentArea.HasItem(command.Target))
         {
-            _currentArea.GetItem(command.Target);
+            Item item = _currentArea.GetItem(command.Target);
+            if (item is ICarryable thing)
+                _player.AddItem(thing); //need to write backpack command so the item can be added to the player's inventory
+            WriteLineWarning($"You have picked up {command.Target}.");
         }
-        
         if (!_currentArea.HasItem(command.Target) && command.Target is ICarryable)
         {
             WriteLineWarning("This item isn't here.");
         }
-        WriteLineWarning("You can't pick that up.");
+        else
+        {WriteLineWarning("You can't pick that up.");}
     }
 
     private static void ProcessFightCommand(Command command)

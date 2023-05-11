@@ -18,7 +18,7 @@ public class Creature : ICreature
     
 
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment { get; init; } = new(new Dictionary<EquipSlot, IEquipable>());
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items { get; init; } = new(new Dictionary<UniqueName, ICarryable>());
+    public Backpack Items { get; init; } = new(5, 20);
 
     /// <summary>
     /// Different Creatures can have Different Combat mechanics.

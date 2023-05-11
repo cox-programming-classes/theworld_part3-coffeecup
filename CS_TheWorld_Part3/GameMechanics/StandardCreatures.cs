@@ -39,11 +39,7 @@ public static class StandardCreatures
                 Name = "Possuuuuuuuuummmmmms",
                 Description = "it's definetely a possum",
                 Stats = new StatChart(maxHp: 50, ac: 12, hitDice: Dice.D20, attackDice: new Dice(count: 2, sides: 20)),
-                Items = new (new Dictionary<UniqueName, ICarryable>()
-                    //dont write the readonly or iccaryable part IT WILL AUTOFILL
-                    {
-                        { "firestone", new KeyStone() }
-                    })
+                Items = new Backpack(6, 10) { { "firestone", new KeyStone() } }
             };
             return marsupial;
         }

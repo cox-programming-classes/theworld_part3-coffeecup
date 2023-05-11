@@ -43,7 +43,7 @@ public class Player : ICreature
     {
         Name = name;
         Stats = new(10, 10, Dice.D20, new(2, 4));
-        
+
     }
 
     
@@ -57,9 +57,8 @@ public class Player : ICreature
                    make sure items aren't lost when equiping a new item [Easy]
                    when an item is unequiped, it should return to the players inventory [Easy]
      */
-    
-    private Dictionary<UniqueName, ICarryable> _items = new();
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items => _items.AsReadOnly();
+
+    public Backpack Items { get; protected set; }
 
     
     /* TODO:  Write Behaviors that allow the player to access their Items.

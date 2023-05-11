@@ -33,7 +33,7 @@ public interface ICreature
     
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment { get; }
     
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items { get; }
+    public Backpack Items { get; }
 
     /// <summary>
     /// Default behavior is just to do an unarmed attack against the target.

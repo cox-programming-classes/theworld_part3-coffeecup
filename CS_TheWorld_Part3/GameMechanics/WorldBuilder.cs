@@ -27,7 +27,7 @@ public static partial class Program
             Description = "A barren plane with an ambient temperature around 22C and moderate humidity."
         };
         
-        start.AddItem("magicwand", StandardItems.SlothWand);
+        start.AddItem("sloth-shaped-wand", StandardItems.SlothWand);
         
         var possum  = StandardCreatures.Marsupial;
 
@@ -83,13 +83,7 @@ public static partial class Program
         {
             Name="Salamander",
             Description = "A lizard looking critter that has a flickering flame down its spine.",
-            Items = new(new Dictionary<UniqueName, ICarryable>()
-            {   
-                {
-                    "firestone", 
-                    StandardItems.FireStone
-                }
-            }),
+            Items = new(new Backpack(1,5) {{"firestone", StandardItems.FireStone}}),
             Stats = new(15, 12, Dice.D20, Dice.D6)
         };
 
