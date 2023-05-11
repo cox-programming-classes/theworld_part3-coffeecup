@@ -53,6 +53,7 @@ public readonly struct Dice
 
     public Dice(string diceString)
     {
+        // hm harder than it looks. will figure this out
         // TODO:  Implement the string constructor for Dice that converts "2d4+5" into a Dice. [Moderate]
         // TODO:  Improve the constructor using Regular Expressions to validate the diceString [Difficult]
         throw new NotImplementedException("You Gotta Write this!");

@@ -57,10 +57,16 @@ public class Area
     {
         if (_items.ContainsKey(uniqueName))
             throw new WorldException<Area>(this, $"{uniqueName} already exists in this area's _Items");
-        
+        // if you already have the item
         _items.Add(uniqueName, item);
     }
 
+    public void RemoveItem(UniqueName uniqueName, Item item)
+    {
+        if (!_items.ContainsKey(uniqueName))
+            throw new WorldException<Area>(this, $"You do not have {uniqueName} in your inventory.");
+        _items.Remove(uniqueName);
+    }// if the unique name of the item matches the input 
     public bool HasItem(UniqueName uniqueName) => _items.ContainsKey(uniqueName);
     
     public Item? GetItem(UniqueName uniqueName)
@@ -70,7 +76,7 @@ public class Area
 
         return _items[uniqueName];
     }
-    
+
     /// <summary>
     /// TODO:  Write a RemoveItem method that removes an item from the area so that it is not duplicated when picked up [Easy]
     /// </summary>
@@ -110,15 +116,22 @@ public class Area
         _neighbors.Add(direction, area);
     }
 
+    public void RemoveNeighboringArea(Direction direction)
+    {
+        if (!_neighbors.Keys.Any(dir => dir.DirectionName == direction.DirectionName))
+            throw new WorldException<Area>(this, $"You do not have {direction.DirectionName} as a neighbor.");
+        _neighbors.Remove(direction);
+    }
+
     public bool HasNeighbor(UniqueName uniqueName) => _neighbors.Keys.Any(dir => dir.DirectionName == uniqueName);
     
     public Area? GetNeighboringArea(UniqueName uniqueName)
     {
         if (_neighbors.Keys.All(dir => dir.DirectionName != uniqueName))
             return null;
-
         return _neighbors.First(kvp => kvp.Key.DirectionName == uniqueName).Value;
     }
+
     
     // TODO:  Write a RemoveNeighbor method.  This may be deceptive--think about how and why you might need this! [Moderate]
 }

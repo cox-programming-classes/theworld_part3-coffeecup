@@ -49,7 +49,7 @@ public class Player : ICreature
     private Dictionary<EquipSlot, IEquipable> _equipment = new();
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment => _equipment.AsReadOnly();
     
-    /* TODO:  Write Behaviors that allow the player to equip and unequip things things
+    /* TODO:  Write Behaviors that allow the player to equip and unequip things
               i.e. move something from your inventory to equipment [Moderate]
                    make sure items aren't lost when equiping a new item [Easy]
                    when an item is unequiped, it should return to the players inventory [Easy]
