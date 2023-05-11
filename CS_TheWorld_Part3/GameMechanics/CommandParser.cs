@@ -93,6 +93,7 @@ public static partial class Program
         if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
         {
             _currentArea.GetItem(command.Target);
+            WriteLineNeutral("That item's now in your backpack!");
             return;
         }
         
@@ -168,5 +169,7 @@ public static partial class Program
             foreach(var things in _player.Items)
                 WriteNeutral($"[{things.Key}] ");
         }
+
+        return;
     }
 }

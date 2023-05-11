@@ -1,3 +1,4 @@
+using CS_TheWorld_Part3.Areas;
 using CS_TheWorld_Part3.Creatures;
 using CS_TheWorld_Part3.Items;
 namespace CS_TheWorld_Part3.GameMechanics;
@@ -30,6 +31,22 @@ public class KeyStone : Item, ICarryable, IUsable
     }
 }
 
+public class TransportItem : Item, ICarryable, IUsable
+{
+    public Area TravellingTo { get; }
+    public int Weight { get; init; }
+    public string TravelTo(object target)
+    {
+        if (target == TravellingTo)
+        {
+            _player.currentArea = TravellingTo;
+            return $"You are now in {TravellingTo.Name}";
+        }
+
+        return $"You can't use {this} on creatures";
+    }
+}
+
 // TODO:  Create a specialized item that can be USED to Heal the player [Moderate]
 
 public static class StandardItems
@@ -44,5 +61,11 @@ public static class StandardItems
         Weight = 1
     };
     
+    public static TransportItem Teleporting => new()
+    {
+        Name = "Teleport Machine",
+        Description = "A stone that can allow you to travel to a place.",
+        Weight = 1
+    };
     // TODO:  Create more cookie-cutter items that you can initialize at will
 }
