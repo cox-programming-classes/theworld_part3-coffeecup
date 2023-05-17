@@ -54,13 +54,7 @@ public static partial class Program
         {
             Name = "Giant Moth",
             Description = "Holy shit that things huge!",
-            Items= new(new Dictionary<UniqueName, ICarryable>()
-            {
-                {
-                    "sword",
-                    StandardEquipment.Sword
-                }
-            }),
+            Items= new Backpack(4, 15) {{ "sword", StandardEquipment.Sword}},
             Stats = new StatChart(12, 8, Dice.D20, new(1, 6, -1))
         };
         // Here we can assign a lambda expression
@@ -83,7 +77,7 @@ public static partial class Program
         {
             Name="Salamander",
             Description = "A lizard looking critter that has a flickering flame down its spine.",
-            Items = new(new Backpack(1,5) {{"firestone", StandardItems.FireStone}}),
+            Items = new Backpack(1,5) {{"firestone", StandardItems.FireStone}},
             Stats = new(15, 12, Dice.D20, Dice.D6)
         };
 

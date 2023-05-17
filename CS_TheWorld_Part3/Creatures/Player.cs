@@ -43,12 +43,9 @@ public class Player : ICreature
     {
         Name = name;
         Stats = new(10, 10, Dice.D20, new(2, 4));
-
+        Items = new Backpack(10, 20);
     }
-
     
-
-
     private Dictionary<EquipSlot, IEquipable> _equipment = new();
     public ReadOnlyDictionary<EquipSlot, IEquipable> Equipment => _equipment.AsReadOnly();
     
@@ -60,7 +57,6 @@ public class Player : ICreature
 
     public Backpack Items { get; protected set; }
 
-    
     /* TODO:  Write Behaviors that allow the player to access their Items.
               i.e PickUp an item and add it to the inventory, [Easy]
                   Get an item from your inventory, [Moderate]

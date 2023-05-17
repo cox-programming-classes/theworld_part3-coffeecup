@@ -32,7 +32,6 @@ public static partial class Program
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
     //        all the possible ways to use the `look` command. [Easy, Multipart]
     // TODO:  Add a `backpack` command that lists the contents of your players Inventory. [Easy]
-    // TODO:  Implement the `get` command to pick up an item and place it in the player inventory [Easy]
     // TODO:  Implement a `drop` command that removes an item from the players inventory and places it in the current Area [Easy]
     // TODO:  Add a `use` command that allows you to use any IUseableItem that exists in the current Area [Moderate]
     // TODO:  extend the `use` command to allow you to use any IUseableItem in the players Inventory [Moderate]
@@ -92,15 +91,22 @@ public static partial class Program
         {
             Item item = _currentArea.GetItem(command.Target);
             if (item is ICarryable thing)
-                _player.AddItem(thing); //need to write backpack command so the item can be added to the player's inventory
-            WriteLineWarning($"You have picked up {command.Target}.");
+            {
+                _player.Items.AddItem(command.Target, thing); //need to write backpack command so the item can be added to the player's inventory
+                WriteLineWarning($"You have picked up {command.Target}.");
+            }
+
+            if (!(item is ICarryable))
+                WriteLineWarning($"You can't pick up {command.Target}.");
         }
-        if (!_currentArea.HasItem(command.Target) && command.Target is ICarryable)
+        else if (!_currentArea.HasItem(command.Target))
         {
             WriteLineWarning("This item isn't here.");
         }
         else
-        {WriteLineWarning("You can't pick that up.");}
+        {
+            WriteLineWarning("error!");
+        }
     }
 
     private static void ProcessFightCommand(Command command)
