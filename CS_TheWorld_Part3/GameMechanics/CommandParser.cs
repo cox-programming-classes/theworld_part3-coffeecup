@@ -137,7 +137,7 @@ public static partial class Program
             return;
         }
         
-        WriteLineWarning("Gotta write that code yet....");
+        //WriteLineWarning("Gotta write that code yet....");
         var target = _currentArea.GetCreature(command.Target)!;
         DoBattle(target);
     }

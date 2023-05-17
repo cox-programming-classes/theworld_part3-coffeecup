@@ -21,8 +21,9 @@ public static partial class Program
         WriteLineWarning($"You engage {creature.Name} in combat!");
         while (_player.Stats.HP > 0 && creature.Stats.HP > 0)
         {
-            var command = (Command)GetPlayerInput("(battle) ");
+            var command = (Command)GetPlayerInput("(battle): do you wish to attack, defend, or flee? ");
             if (!_battleCommands.Contains(command.CommandWord))
+                //if battle command doesnt have a valid command word
             {
                 WriteLineWarning($"{command.CommandWord} is not a valid command word.");
                 continue;

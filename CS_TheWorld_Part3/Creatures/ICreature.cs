@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CS_TheWorld_Part3.GameMath;
 using CS_TheWorld_Part3.Items;
+using CS_TheWorld_Part3.GameMechanics;
 
 namespace CS_TheWorld_Part3.Creatures;
 
@@ -45,10 +46,12 @@ public interface ICreature
     public void CombatLogic(ICreature creature, Command command)
     {
         var hit = Stats.HitDice.Roll() > creature.EffectiveAC;
+        //combat logic is like its a hit, then you do attackdice and change the HP of the creature
         if (hit)
         {
             var value = Stats.AttackDice.Roll();
             creature.Stats.ChangeHP(-value);
+            WriteLineWarning("you hit creature for ");
         }
     }
 }
