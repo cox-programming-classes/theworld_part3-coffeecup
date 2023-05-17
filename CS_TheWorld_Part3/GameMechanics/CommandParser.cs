@@ -26,7 +26,20 @@ public static partial class Program
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
-        {"backpack", ProcessBackpackCommand }
+        {"backpack", ProcessBackpackCommand },
+        {"help" , ProcessHelpCommand }
+    };
+    
+    private static Dictionary<UniqueName, string> _defCommands = new()
+    {
+        {"look", "Look around this area. Does not take an object." },
+        {"get", "Place items into your backpack from the area." },
+        {"drop", "Drop items from your backpack to the area." },
+        {"fight", "Fight a selected creature" },
+        {"cheat", "guess what this does >:) Does not take an object." }, 
+        {"go", "Move to a different area." },
+        {"backpack", "See what is in your backpack." },
+        {"help" , "See this help menu again. Does not take an object." }
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -93,7 +106,9 @@ public static partial class Program
         if (_currentArea.HasItem(command.Target) && command.Target is ICarryable)
         {
             _currentArea.GetItem(command.Target);
-            WriteLineNeutral("That item's now in your backpack!");
+            WriteLineNeutral("That [");
+            WriteSurprise(command.Target);
+            WriteLineNeutral("is now in your backpack!");
             return;
         }
         
@@ -171,5 +186,20 @@ public static partial class Program
         }
 
         return;
+    }
+    private static void ProcessHelpCommand(Command cmd)
+    {
+        WriteLineNeutral("Here are the possible commands you can use:");
+        foreach (var commands in _defCommands)
+        {
+            WriteNeutral("\t[");
+            WriteSurprise(commands.Key.ToString());
+            WriteLineNeutral($"]: {commands.Value}");
+        }
+        WriteNeutral("The order is [");
+        WriteSurprise("command");
+        WriteNeutral("] [");
+        WriteSurprise("subject or object");
+        WriteLineNeutral("].");
     }
 }

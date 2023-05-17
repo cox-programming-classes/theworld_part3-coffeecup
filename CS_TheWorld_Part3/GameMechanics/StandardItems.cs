@@ -33,17 +33,16 @@ public class KeyStone : Item, ICarryable, IUsable
 
 public class TransportItem : Item, ICarryable, IUsable
 {
-    public Area TravellingTo { get; }
     public int Weight { get; init; }
     public string TravelTo(object target)
     {
-        if (target == TravellingTo)
+        if (target is Area)
         {
-            _player.currentArea = TravellingTo;
-            return $"You are now in {TravellingTo.Name}";
+            creature.Stats.ChangeHP(-3);
+            return $"{creature.Name} is bathed in the light of {Element}";
         }
 
-        return $"You can't use {this} on creatures";
+        return $"{this} has no effect on {target}";
     }
 }
 
