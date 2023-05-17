@@ -56,6 +56,16 @@ public class Player : ICreature
      */
 
     public Backpack Items { get; protected set; }
+    
+    public ICarryable GetItem(UniqueName name)
+    {
+        if (Items.ContainsKey(name))
+        {
+            return Items[name];
+        }
+
+        return null;
+    }
 
     /* TODO:  Write Behaviors that allow the player to access their Items.
               i.e PickUp an item and add it to the inventory, [Easy]

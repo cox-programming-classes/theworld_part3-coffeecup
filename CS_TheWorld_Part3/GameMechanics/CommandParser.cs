@@ -26,7 +26,8 @@ public static partial class Program
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
         {"stats", ProcessStatsCommand},
-        {"help", ProcessHelpCommand}
+        {"help", ProcessHelpCommand},
+        {"use", ProcessUseCommand}
     };
     
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
@@ -174,5 +175,17 @@ public static partial class Program
             WriteLineNeutral("stats: to see your stats, use 'stats'");
         }
 
+    }
+
+    private static void ProcessUseCommand(Command command)
+    {
+        if (_player.Items.ContainsKey(command.Target))
+        {
+            object thing = _player.GetItem(command.Target);
+            if (thing is MagicWand wand)
+            {
+                WriteLineNeutral(wand.Cast(_currentArea));
+            }
+        }
     }
 }
