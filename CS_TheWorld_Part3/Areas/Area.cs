@@ -69,6 +69,12 @@ public class Area
         return _items[uniqueName];
     }
     
+    public void RemoveItem(UniqueName uniqueName)
+    {
+        if (this.HasItem(uniqueName))
+            _items.Remove(uniqueName);
+    }
+    
     /// <summary>
     /// TODO:  Write a RemoveItem method that removes an item from the area so that it is not duplicated when picked up [Easy]
     /// </summary>

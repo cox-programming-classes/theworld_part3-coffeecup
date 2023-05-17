@@ -21,11 +21,10 @@ public static partial class Program
         {"fight", ProcessFightCommand },
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
-        {"help", ProcessHelpCommand }
+        {"help", ProcessHelpCommand },
+        {"stats", ProcessStatsCommand}
     };
-
-    // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
-    // TODO:  Add a `help` command that displays the list of allowed commands and describes how to use them [Easy]
+    
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
     //        all the possible ways to use the `look` command. [Easy, Multipart]
     // TODO:  Add a `backpack` command that lists the contents of your players Inventory. [Easy]
@@ -56,32 +55,66 @@ public static partial class Program
         _commandWords[command.CommandWord](command);
     }
 
-    public static void ProcessHelpCommand(Command command)
+    public static void ProcessStatsCommand(Command command)
     {
-        WriteLineNeutral("Hi! I'm your suit's AI companion.");
-        WriteLineNeutral("It seems you're unsure what to do. Here's a list of commands you can use!");
-        //look get fight go get
-        WritePositive("\tlook");
-        WriteNeutral(": this will tell you where you are, what creatures and items there are there, and the directions you can go");
-        
-        
+        WriteLineNeutral("\tLevel: " + _player.Stats.Level);
+        WriteLineNeutral("\tHP: " + _player.Stats.HP + "/" + _player.Stats.MaxHP + " (" + (_player.Stats.PercentHP * 100) + "%)");
+        WriteLineNeutral("\tAC: " + _player.Stats.AC);
+        WriteLineNeutral("\tHit Dice: " + _player.Stats.HitDice.Count +"d" + _player.Stats.HitDice.SideCount + " + " + _player.Stats.HitDice.Modifier);
+        WriteLineNeutral("\tAttack Dice: " + _player.Stats.AttackDice.Count +"d" + _player.Stats.AttackDice.SideCount + " + " + _player.Stats.AttackDice.Modifier);
     }
     
-    private static void ProcessGoCommand(Command command)
+    public static void ProcessHelpCommand(Command cmd)
     {
-        if (command.Target == "")
+        if (cmd.Target == "")
+        {
+            WriteLineNeutral("Hi, " + _player.Name + "! I'm your suit's AI companion.");
+            WriteLineNeutral("It seems you're unsure what to do. Here's a list of commands you can use!");
+            WritePositive("\tlook");
+            WritePositive("\n\tgo ");
+            WriteSurprise("direction");
+            WritePositive("\tstats");
+            WritePositive("\n\tfight ");
+            WriteSurprise("target");
+            WriteNeutral(": this command initiates battle. When in battle, the only command is ");
+            WritePositive("attack");
+            WriteNeutral(". At the end of battle, or if the ");
+            WritePositive("flee");
+            WriteNeutral(" command is used, you return to the main commands.");
+        }
+        else if (cmd.Target == "look")
+        {
+            //help look
+        }
+        else if (cmd.Target == "go")
+        {
+            //help go
+        }
+        else if (cmd.Target == "stats")
+        {
+            //help stats
+        }
+        else if (cmd.Target == "fight")
+        {
+            //help fight
+        }
+    }
+    
+    private static void ProcessGoCommand(Command cmd)
+    {
+        if (cmd.Target == "")
         {
             WriteLineWarning("Go Where?");
             return;
         }
 
-        if (!_currentArea.HasNeighbor(command.Target))
+        if (!_currentArea.HasNeighbor(cmd.Target))
         {
-            WriteLineWarning($"I don't know where {command.Target} is.");
+            WriteLineWarning($"I don't know where {cmd.Target} is.");
             return;
         }
 
-        var place = _currentArea.GetNeighboringArea(command.Target)!;
+        var place = _currentArea.GetNeighboringArea(cmd.Target)!;
         
         // Check the new Actions that Areas have.
         // Are there actions that happen when you leave an area or when you enter a new area?
