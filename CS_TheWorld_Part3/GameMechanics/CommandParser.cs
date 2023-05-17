@@ -23,6 +23,7 @@ public static partial class Program
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
         {"stats", ProcessStatCommand},
+        {"help", ProcessHelpCommand},
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -134,9 +135,43 @@ public static partial class Program
         }
     }
 
-    private static void ProcessStatCommand(Command cmd)
-    { 
-        
-        
+    private static void ProcessStatCommand(Command command)
+    {
+        WriteLineNeutral($"{_player.Stats}");
+    }
+    
+    private static void ProcessHelpCommand(Command command)
+    {
+        WriteLinePositive("What do you need help with?");
+        command = GetPlayerInput(); 
+        while (command.CommandWord == "commands")
+        {
+            WriteLineNeutral("Possible Commands: look, get, fight, go, stats");
+            command = GetPlayerInput();
+            if (command.CommandWord == "look")
+            {
+                WriteLineNeutral("Look: look around your current area and see what " +
+                                 "items and creatures are there.");
+            }
+
+            if (command.CommandWord == "get")
+            {
+                WriteLineNeutral("Get: pick up an item in your area");
+            }
+
+            if (command.CommandWord == "fight")
+            {
+                WriteLineNeutral("Fight: fight a creature and gain/lose XP and items");
+            }
+
+            if (command.CommandWord == "stats")
+            {
+                WriteLineNeutral("Stats: displays your current health and XP");
+            }
+        }
+
+        // Check the new Actions that Areas have.
+        // Are there actions that happen when you leave an area or when you enter a new area?
+        // keystone usage
     }
 }
