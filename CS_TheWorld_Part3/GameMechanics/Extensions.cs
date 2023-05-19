@@ -81,4 +81,20 @@ public static class Extensions
             }
         }
     }
+    public static void FindItems(this Player player)
+    {
+        {
+            WriteLineNeutral($"Your inventory includes:");
+        
+            if (player.Items.Any())
+            {
+                foreach (UniqueName name in player.Items.Keys)
+                {
+                    WriteNeutral("\tA [");
+                    WriteSurprise($"{name}");
+                    WriteLineNeutral("]");
+                }
+            }
+        }
+    }
 }

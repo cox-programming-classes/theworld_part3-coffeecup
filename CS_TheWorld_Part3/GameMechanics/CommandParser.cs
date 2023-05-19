@@ -24,6 +24,8 @@ public static partial class Program
         {"go", ProcessGoCommand },
         {"stats", ProcessStatCommand},
         {"help", ProcessHelpCommand},
+        {"get", ProcessGetCommand},
+        {"find", ProcessFindCommand},
     };
 
     // TODO:  Add a `stats` command that displays the Players current Stats. [Easy]
@@ -173,5 +175,19 @@ public static partial class Program
         // Check the new Actions that Areas have.
         // Are there actions that happen when you leave an area or when you enter a new area?
         // keystone usage
+    }
+
+    private static void ProcessGetCommand(Command command)
+    {
+        // if the command is literally just "look"
+        // look around the current area.
+        // the LookAround() method is an Extension!
+        var target = _player.GetItem(command.Target);
+        _player.AddItem(target.Name, command.Target);
+    }
+
+    private static void ProcessFindCommand(Command command)
+    {
+        _player.FindItems();
     }
 }

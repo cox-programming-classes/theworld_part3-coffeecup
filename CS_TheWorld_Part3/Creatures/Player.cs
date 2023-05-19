@@ -55,8 +55,8 @@ public class Player : ICreature
                    when an item is unequiped, it should return to the players inventory [Easy]
      */
     
-    private Dictionary<UniqueName, ICarryable> _items = new();
-    public ReadOnlyDictionary<UniqueName, ICarryable> Items => _items.AsReadOnly(); // doesn't require memory
+    private Dictionary<UniqueName, Item> _stuff = new();
+    public ReadOnlyDictionary<UniqueName, Item> Stuff => _stuff.AsReadOnly(); // doesn't require memory
     
     /* TODO:  Write Behaviors that allow the player to access their Items.
               i.e PickUp an item and add it to the inventory, [Easy]
@@ -76,6 +76,30 @@ public class Player : ICreature
             creature.Stats.ChangeHP(-value);
         }
     };
+    public void AddItem(UniqueName uniqueName, Item item)
+    {
+        if (_stuff.ContainsKey(uniqueName))
+            throw new WorldException<Player>(this, $"{uniqueName} already exists in your inventory.");
+        // if you already have the item
+        _stuff.Add(uniqueName, item);
+    }
+
+    public void RemoveItem(UniqueName uniqueName, ICarryable iCarryable)
+    {
+        if (!_stuff.ContainsKey(uniqueName))
+            throw new WorldException<Player>(this, $"You do not have {uniqueName} in your inventory.");
+        _stuff.Remove(uniqueName);
+    }// if the unique name of the item matches the input 
+    public bool HasItem(UniqueName uniqueName) => _stuff.ContainsKey(uniqueName);
+    
+    public Item? GetItem(UniqueName uniqueName)
+    {
+        if (!HasItem(uniqueName))
+            return null;
+
+        return _stuff[uniqueName];
+    }
+
     
     // TODO:  Create a way for players to have special abilities that can be used in or out of combat. [Extremely Difficult]
     // TODO:  Part 1:  Define what a "special ability" is. [Moderate]
