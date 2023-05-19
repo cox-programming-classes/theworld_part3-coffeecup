@@ -1,5 +1,7 @@
 
 using CS_TheWorld_Part3.GameMath;
+using CS_TheWorld_Part3.Items;
+
 namespace CS_TheWorld_Part3.GameMechanics;
 using static TextFormatter;
 
@@ -22,7 +24,7 @@ public static partial class Program
         {"cheat", command => _player.Stats.GainExp(50) }, 
         {"go", ProcessGoCommand },
         {"help", ProcessHelpCommand },
-        {"stats", ProcessStatsCommand}
+        {"stats", ProcessStatsCommand},
     };
     
     // TODO:  Expand the `help` command to take a second parameter like `help look` that describes 
@@ -73,30 +75,45 @@ public static partial class Program
             WritePositive("\tlook");
             WritePositive("\n\tgo ");
             WriteSurprise("direction");
-            WritePositive("\tstats");
+            WritePositive("\n\tstats");
             WritePositive("\n\tfight ");
             WriteSurprise("target");
             WriteNeutral(": this command initiates battle. When in battle, the only command is ");
             WritePositive("attack");
             WriteNeutral(". At the end of battle, or if the ");
             WritePositive("flee");
-            WriteNeutral(" command is used, you return to the main commands.");
+            WriteNeutral(" command is used, you return to the main commands.\n");
         }
         else if (cmd.Target == "look")
         {
-            //help look
+            WritePositive("\tlook");
+            WriteNeutral(": provides a description of the area, lists the items and creatures present, and lists the directions you can go from there");
+            WritePositive("\n\tlook ");
+            WriteSurprise("target");
+            WriteNeutral(": provides the description associated with that target\n");
         }
         else if (cmd.Target == "go")
         {
-            //help go
+            WritePositive("\tgo ");
+            WriteSurprise("direction");
+            WriteNeutral(": moves you to the area that direction from your current area\n");
         }
         else if (cmd.Target == "stats")
         {
-            //help stats
+            WritePositive("\tstats");
+            WriteNeutral(": lists your level, HP, max HP, AC, hit dice, and attack dice\n");
         }
         else if (cmd.Target == "fight")
         {
-            //help fight
+            WritePositive("\tfight ");
+            WriteSurprise("target");
+            WriteNeutral(": initializes battle.");
+            //if the spell feature is not unlocked
+            WriteLineNeutral("\n\tWhen in battle, you can only use these commands:");
+            WritePositive("\t\tattack");
+            WriteNeutral(": you attack your opponent and they attack you. None, one, or both of you may do damage");
+            WritePositive("\n\t\tflee");
+            WriteNeutral(": you leave combat. Aside from defeating the opponent, this is the only way to disengage from battle\n");
         }
     }
     
